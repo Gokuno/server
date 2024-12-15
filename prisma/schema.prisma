@@ -20,18 +20,18 @@ model User {
   profilePictureUrl String?
   teamId            Int?
 
-  authoredTasks Task[]           @relation("TaskAuthor")
-  assignedTasks Task[]           @relation("TaskAssignee")
-  taskAssigment TaskAssignment[]
-  attachments   Attachment[]
-  comments      Comment[]
-  team          Team?            @relation(fields: [teamId], references: [id])
+  authoredTasks   Task[]           @relation("TaskAuthor")
+  assignedTasks   Task[]           @relation("TaskAssignee")
+  taskAssignments TaskAssignment[]
+  attachments     Attachment[]
+  comments        Comment[]
+  team            Team?            @relation(fields: [teamId], references: [id])
 }
 
 model Team {
   id                   Int           @id @default(autoincrement())
   teamName             String
-  projectOwnerUserId   Int?
+  productOwnerUserId   Int?
   projectManagerUserId Int?
   projectTeams         ProjectTeam[]
   user                 User[]
