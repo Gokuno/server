@@ -18,3 +18,12 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cors());
 
 /* RUTAS */
+app.get("/", (req, res) => {
+  res.send("Esta es la ruta a Inicio");
+});
+
+/* SERVER */
+const port = process.env.PORT || 3000;
+app.listen(port, () => {
+  console.log(`El servidor corre en ${port}`)
+});
