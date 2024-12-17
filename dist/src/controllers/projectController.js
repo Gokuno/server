@@ -9,7 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getProjects = void 0;
+exports.createProject = exports.getProjects = void 0;
 const client_1 = require("@prisma/client");
 const prisma = new client_1.PrismaClient();
 const getProjects = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
@@ -18,7 +18,25 @@ const getProjects = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
         res.json(projects);
     }
     catch (error) {
-        res.status(500).json({ message: "Error al recuperar proyectos" });
+        res.status(500).json({ message: `Error al recuperar proyectos: ${error.message}` });
     }
 });
 exports.getProjects = getProjects;
+const createProject = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const { name, description, startDate, endDate } = req.body;
+    try {
+        const newProject = yield prisma.project.create({
+            data: {
+                name,
+                description,
+                startDate,
+                endDate
+            }
+        });
+        res.status(201).json(newProject);
+    }
+    catch (error) {
+        res.status(500).json({ message: `Error al crear el proyecto: ${error.message}` });
+    }
+});
+exports.createProject = createProject;
